@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Recognition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .video-feed {
+            margin: 20px 0;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+        .names-list {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Face Recognition</h1>
+        <div class="video-feed">
+            <img src="{{ url_for('video_feed') }}" width="640" height="480">
+        </div>
+        <div class="names-list">
+            <h2>Recognized People:</h2>
+            <div id="names"></div>
+        </div>
+    </div>
+
+    <script>
+        // Update recognized names every second
+        setInterval(function() {
+            fetch('/recognized_names')
+                .then(response => response.json())
+                .then(data => {
+                    const namesDiv = document.getElementById('names');
+                    namesDiv.innerHTML = data.names.join(', ') || 'No faces detected';
+                });
+        }, 1000);
+    </script>
+</body>
+</html>

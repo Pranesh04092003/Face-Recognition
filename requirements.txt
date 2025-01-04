@@ -1,0 +1,7 @@
+flask
+face-recognition
+face-recognition-models
+numpy
+opencv-python
+dlib
+Pillow 
